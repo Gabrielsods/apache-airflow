@@ -36,24 +36,11 @@ jobs:
 
 
       - run:
-          name: Verificar se o pytest está instalado
+          name: Verificar a versão do Python no contêiner do Apache Airflow
           command: |
-            docker exec -it $CIRCLE_CONTAINER_ID python -m pytest --version
-            if [ $? -eq 0 ]; then
-              echo "pytest is installed"
-            else
-              echo "pytest is not installed"
-            fi
-
-      - run:
-          name: Verificar se o unittest está instalado
-          command: |
-            docker exec -it $CIRCLE_CONTAINER_ID python -m unittest --version
-            if [ $? -eq 0 ]; then
-              echo "unittest is installed"
-            else
-              echo "unittest is not installed"
-            fi
+            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 python --version
+            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 pytest --version
+            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 unittest --version
 
 workflows:
   version: 2
