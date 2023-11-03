@@ -2,12 +2,11 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: python:3.7  # Use uma imagem Docker compatível com o Python e Apache Airflow
+      - image: python:3.7
 
     steps:
       - checkout
 
-      # Instalação do Python, Apache Airflow e bibliotecas listadas no requirements.txt
       - run:
           name: Instalar Python e dependências
           command: |
@@ -25,11 +24,8 @@ jobs:
             pip install apache-airflow==2.5.2
 
             # Instale as bibliotecas listadas no requirements.txt
-            pip install -r path/to/requirements.txt  # Substitua "path/to/requirements.txt" pelo caminho correto
+            pip install -r requirements/requirements.txt
 
-      # Adicione outras etapas conforme necessário, como a configuração do ambiente, configuração do banco de dados, etc.
-
-  # Adicione outros trabalhos, comandos e configurações necessárias conforme necessário.
 
 workflows:
   version: 2
