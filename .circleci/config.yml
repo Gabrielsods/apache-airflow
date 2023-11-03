@@ -21,9 +21,9 @@ jobs:
           name: Empacotar requisitos do ambiente do MWAA Local
           command: ./mwaa-local-env package-requirements
 
-      - run:
-          name: Iniciar ambiente do MWAA Local
-          command: ./mwaa-local-env start &
+      # - run:
+      #     name: Iniciar ambiente do MWAA Local
+      #     command: ./mwaa-local-env start &
 
       - run:
           name: Verificar se o pytest está instalado
