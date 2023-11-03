@@ -14,9 +14,9 @@ jobs:
             export AIRFLOW__CORE__DAGS_FOLDER=apache-airflow/dags
             sudo apt-get update
             sudo apt-get install -y python3-pip
+            sudo apt-get install -y mysql-client 
             pip3 install apache-airflow
-            pip3 install connexion
-            
+
             airflow db init
             airflow db check
 
