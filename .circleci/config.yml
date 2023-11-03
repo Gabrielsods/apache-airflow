@@ -12,8 +12,8 @@ jobs:
           command: |
             export AIRFLOW_HOME=~/airflow
             echo $AIRFLOW_HOME
-            apt-get update
-            apt-get install -y python3-pip
+            sudo apt-get update
+            sudo apt-get install -y python3-pip
             pip3 install apache-airflow
             airflow db init
             airflow db check
