@@ -2,8 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.10  # Python 3.10
-
+      - image: circleci/python:3.10  # Use a versão desejada do Python
     steps:
       - checkout
 
@@ -12,18 +11,12 @@ jobs:
           command: |
             export AIRFLOW_HOME=~/airflow
             echo $AIRFLOW_HOME
+            export AIRFLOW__CORE__DAGS_FOLDER=apache-airflow/dags
             sudo apt-get update
             sudo apt-get install -y python3-pip
-            pip3 install 'apache-airflow==2.6.3'  # Apache Airflow 2.6.3
-
+            pip3 install apache-airflow
+            airflow db init
             airflow db check
-
-      - run:
-          name: DAGS
-          command: |
-            ls
-            cd dags  # Correção no comando para entrar na pasta dags
-            ls
 
       - run:
           name: Testar a DAG e a tarefa específica
