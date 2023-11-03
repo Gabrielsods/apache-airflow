@@ -21,7 +21,7 @@ jobs:
 
       - run:
           name: Testar a DAG e a tarefa específica
-          command: airflow tasks test hello_world_dag hello_task
+          command: airflow tasks test hello_world_dag hello_task 2023-10-10
 
 workflows:
   version: 2
