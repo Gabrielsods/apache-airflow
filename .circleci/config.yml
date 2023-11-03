@@ -17,9 +17,6 @@ jobs:
             sudo apt-get install -y mariadb-client-core-10.5 
             pip3 install apache-airflow
 
-            airflow db init
-            airflow db check
-
       - run:
           name: Testar a DAG e a tarefa específica
           command: airflow tasks test hello_world_dag hello_task
