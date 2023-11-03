@@ -2,18 +2,49 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: amazon/mwaa-local:2_6
-
+      - image: circleci/python:3.8  # Imagem base do CircleCI
     steps:
       - checkout
 
+  build_airflow_image:
+    docker:
+      - image: docker:19.03.12  # Use uma versão compatível do Docker
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12  # Versão compatível do Docker
       - run:
-          name: Instalar Python 3 e dependências
+          name: Construir imagem do Apache Airflow
           command: |
-            yum install -y python3
+            # Suponha que o Dockerfile para a imagem do Apache Airflow esteja no diretório 'docker'
+            cd docker
+            docker build -t my-airflow-image:latest .
+
+  start_airflow:
+    docker:
+      - image: my-airflow-image:latest  # Use a imagem construída anteriormente
+    steps:
+      - checkout
+      - run:
+          name: Build da imagem do ambiente do MWAA Local
+          command: ./mwaa-local-env build-image
+
+      - run:
+          name: Testar requisitos do ambiente do MWAA Local
+          command: ./mwaa-local-env test-requirements
+
+      - run:
+          name: Empacotar requisitos do ambiente do MWAA Local
+          command: ./mwaa-local-env package-requirements
+
+      - run:
+          name: Iniciar ambiente do MWAA Local
+          command: ./mwaa-local-env start
 
 workflows:
   version: 2
   build:
     jobs:
       - build
+      - build_airflow_image
+      - start_airflow
