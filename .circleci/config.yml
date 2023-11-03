@@ -27,9 +27,10 @@ jobs:
 
       - run:
           name: Verificar se o pytest está instalado
-          command: docker exec it amazon/mwaa-local:2_6  /bin/bash
+          command: |
+          docker exec it amazon/mwaa-local:2_6  /bin/bash
           ls
-          
+
 
 workflows:
   version: 2
