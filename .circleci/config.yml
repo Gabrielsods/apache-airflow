@@ -22,8 +22,6 @@ jobs:
           name: DAGS
           command: |
             ls
-            cd ~/airflow
-            ls
             cd dags  # Correção no comando para entrar na pasta dags
             ls
 
