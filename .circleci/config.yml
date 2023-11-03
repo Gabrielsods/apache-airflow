@@ -38,9 +38,7 @@ jobs:
       - run:
           name: Verificar a versão do Python no contêiner do Apache Airflow
           command: |
-            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 python --version
-            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 pytest --version
-            docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 unittest --version
+            docker ps
 
 workflows:
   version: 2
