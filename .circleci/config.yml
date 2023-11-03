@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8 
+      - image: circleci/python:3.10  # Python 3.10
 
     steps:
       - checkout
@@ -14,8 +14,9 @@ jobs:
             echo $AIRFLOW_HOME
             sudo apt-get update
             sudo apt-get install -y python3-pip
-            pip3 install apache-airflow
-            airflow db init
+            pip3 install 'apache-airflow==2.6.3'  # Apache Airflow 2.6.3
+            airflow db migrate
+            airflow connections create-default-connections
             airflow db check
 
       - run:
@@ -24,7 +25,7 @@ jobs:
             ls
             cd ~/airflow
             ls
-            cd/dags
+            cd dags  # Correção no comando para entrar na pasta dags
             ls
 
       - run:
