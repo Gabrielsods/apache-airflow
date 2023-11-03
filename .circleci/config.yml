@@ -6,7 +6,6 @@ jobs:
     steps:
       - checkout
 
-  build_airflow_image:
     docker:
       - image: docker:19.03.12  # Use uma versão compatível do Docker
     steps:
@@ -20,7 +19,6 @@ jobs:
             cd docker
             docker build -t my-airflow-image:latest .
 
-  start_airflow:
     docker:
       - image: my-airflow-image:latest  # Use a imagem construída anteriormente
     steps:
