@@ -2,26 +2,32 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.10  # Use a versão desejada do Python
+      - image: circleci/python:3.8  # Imagem base do CircleCI
     steps:
       - checkout
 
-      - run:
-          name: Instalar dependências
-          command: |
-            export AIRFLOW_HOME=~/airflow
-            echo $AIRFLOW_HOME
-            export AIRFLOW__CORE__DAGS_FOLDER=apache-airflow/dags
-            sudo apt-get update
-            sudo apt-get install -y python3-pip
-            sudo apt-get install -y mariadb-client-core-10.5 
-            pip3 install apache-airflow
-
-            pip install apache-airflow[cncf.kubernetes]
+      - setup_remote_docker:
+          version: 19.03.12  # Versão compatível do Docker
 
       - run:
-          name: Testar a DAG e a tarefa específica
-          command: airflow tasks test hello_world_dag hello_task 2023-10-10
+          name: Build da imagem do ambiente do MWAA Local
+          command: ./mwaa-local-env build-image
+
+      - run:
+          name: Testar requisitos do ambiente do MWAA Local
+          command: ./mwaa-local-env test-requirements
+
+      - run:
+          name: Empacotar requisitos do ambiente do MWAA Local
+          command: ./mwaa-local-env package-requirements
+
+      - run:
+          name: Iniciar ambiente do MWAA Local
+          command: ./mwaa-local-env start &
+
+      - run:
+          name: Verificar se o pytest está instalado
+          command: docker ps
 
 workflows:
   version: 2
