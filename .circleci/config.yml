@@ -6,12 +6,9 @@ jobs:
     steps:
       - checkout
 
-    docker:
-      - image: docker:19.03.12  # Use uma versão compatível do Docker
-    steps:
-      - checkout
       - setup_remote_docker:
           version: 19.03.12  # Versão compatível do Docker
+
       - run:
           name: Construir imagem do Apache Airflow
           command: |
@@ -19,10 +16,8 @@ jobs:
             cd docker
             docker build -t my-airflow-image:latest .
 
-    docker:
-      - image: my-airflow-image:latest  # Use a imagem construída anteriormente
-    steps:
       - checkout
+
       - run:
           name: Build da imagem do ambiente do MWAA Local
           command: ./mwaa-local-env build-image
