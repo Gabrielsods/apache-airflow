@@ -27,7 +27,9 @@ jobs:
 
       - run:
           name: Verificar se o pytest está instalado
-          command: docker exec -it aws-mwaa-local-runner-2_6-local-runner-1 /bin/bash -c "ls"
+          command: |
+          docker ps
+          docker exec -it aws-mwaa-local-runner-2_6_local-runner_1 /bin/bash -c "ls"
 
 
 
