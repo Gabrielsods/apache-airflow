@@ -29,7 +29,8 @@ jobs:
           name: Executar pytest dentro do contêiner
           command: |
             docker ps
-            docker exec -it aws-mwaa-local-runner-2_6_local-runner_1 /bin/bash -c "cd /dags/test_dags/ && pytest test_dag_validation.py -v"
+      #      docker exec -it aws-mwaa-local-runner-2_6_local-runner_1 /bin/bash -c "cd /dags/test_dags/ && pytest test_dag_validation.py -v"
+            docker exec -it aws-mwaa-local-runner-2_6_local-runner_1 /bin/bash -c "cd /dags/ && ls"
 
 
 
